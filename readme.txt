@@ -9,5 +9,9 @@
 3) Use the credential which you install Azure P2S VPN to create a scheduled task run ConnectAzureVPNByScript.ps1. You may modify the user and password in DeployTask.bat and then run it.
 4) The log file is stored at $env:appdata\ConnectAzureVPN by date.
 
+Contribute to the script 
+at
+https://github.com/TomWu1/ConnectAzureVPN/blob/master/ConnectAzureVPNByScript.ps1
 
-Contact tombwu@gmail.com or tom.wu@software.dell.com if you need further enhancement.
+or
+contact tombwu@gmail.com | tom.wu@software.dell.com
