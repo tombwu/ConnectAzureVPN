@@ -102,11 +102,16 @@ function Create-ConnectionsToLocalNetworkNode{
 
 $SourceVNets = Import-Csv -Path $VNetCSVPath
 
-
+#hashtable - subscription:vnet object in csv
 $VNets = @{}
-$VNetSites = @{}
+
+#hashtable - subscription: vnet configuration xml
 $VNetConfigsWithGateway = @{}
+
+#hashtable - subscription: vnet configuration xml
 $VNetConfigsWithoutGateway = @{}
+
+#hashtable - subscription: vnet gateway ip address
 $VNetGateways = @{}
 
 #Build hashtables
@@ -137,8 +142,7 @@ foreach ($VNet in $SourceVNets)
         Write-Host "Can't find VNet site $VNetName under subscription '$Subscription', exit"
         exit 0
     }
-    
-    $VNetSites[$Subscription] = $VNetSite
+
 
     $VNetGateway = Get-AzureVNetGateway -VNetName $VNetName
     if($VNetGateway -and $VNetGateway.VIPAddress)
@@ -190,6 +194,8 @@ foreach($Subscription in $VNetConfigsWithoutGateway.Keys)
     $VNetGateways[$Subscription] = (Get-AzureVNetGateway -VNetName $VNets[$Subscription].VNetName).VIPAddress
 }
 
+
+#config all the subscriptions
 foreach($Subscription in $VNetConfigsWithGateway.Keys)
 {
     Select-AzureSubscription -SubscriptionName $Subscription
